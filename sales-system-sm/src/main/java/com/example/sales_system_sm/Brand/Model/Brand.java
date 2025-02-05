@@ -4,6 +4,8 @@ package com.example.sales_system_sm.Brand.Model;
 import com.example.sales_system_sm.Brand.DTO.DtoBrandSave;
 import com.example.sales_system_sm.Brand.DTO.DtoUpdate;
 import com.example.sales_system_sm.Product.Model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import org.hibernate.annotations.SQLDelete;
@@ -31,6 +33,7 @@ public class Brand {
 
     //---Relacionando con la clase producto----
     @OneToMany(mappedBy = "brand", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> product;
 
 
@@ -51,6 +54,8 @@ public class Brand {
         this.nameBrand = dtoBrandSave.nameBrand();
         this.deleted=false;
     }
+
+
 
     public Long getId() {
         return id;

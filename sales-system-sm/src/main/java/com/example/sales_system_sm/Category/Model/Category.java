@@ -4,6 +4,8 @@ package com.example.sales_system_sm.Category.Model;
 import com.example.sales_system_sm.Category.DTO.DtoCategorySave;
 import com.example.sales_system_sm.Category.DTO.DtoCategoryUpdate;
 import com.example.sales_system_sm.Product.Model.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -14,7 +16,7 @@ import org.hibernate.annotations.Where;
 import java.util.List;
 
 @Entity
-@SQLDelete(sql= "UPDATE brand SET deleted= true WHERE id= ?")
+@SQLDelete(sql= "UPDATE category SET deleted= true WHERE id= ?")
 @Where(clause = "deleted = false")
 @Table(name = "category")
 public class Category {
@@ -30,6 +32,7 @@ public class Category {
     private Boolean deleted= false;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    @JsonIgnore
     private List<Product> product;
 
     public Category(Long id, String nameCategory, boolean deleted, List<Product> product) {
